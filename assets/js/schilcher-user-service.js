@@ -59,13 +59,26 @@
                 .done(function(response) {
                     console.log('Login AJAX response:', response);
                     
-                    if (response.success) {
-                        messagesContainer.html('<div class="schilcher-login-success">' + response.message + '</div>');
+                    // Parse response if it's a string
+                    let parsedResponse = response;
+                    if (typeof response === 'string') {
+                        try {
+                            parsedResponse = JSON.parse(response);
+                        } catch (e) {
+                            console.error('Failed to parse response:', e);
+                            parsedResponse = { success: false, message: 'Ungültige Antwort vom Server.' };
+                        }
+                    }
+                    
+                    if (parsedResponse.success) {
+                        const successMessage = parsedResponse.message || 'Erfolgreich angemeldet!';
+                        messagesContainer.html('<div class="schilcher-login-success">' + successMessage + '</div>');
                         setTimeout(function() {
-                            window.location.href = response.redirect_url;
+                            window.location.href = parsedResponse.redirect_url || '/dashboard';
                         }, 1000);
                     } else {
-                        messagesContainer.html('<div class="schilcher-login-error">' + response.message + '</div>');
+                        const errorMessage = parsedResponse.message || 'Ein Fehler ist aufgetreten.';
+                        messagesContainer.html('<div class="schilcher-login-error">' + errorMessage + '</div>');
                         submitButton.text('Anmelden').prop('disabled', false);
                     }
                 })
@@ -379,13 +392,26 @@
                 .done(function(response) {
                     console.log('Password reset complete AJAX response:', response);
                     
-                    if (response.success) {
-                        messagesContainer.html('<div class="schilcher-login-success">' + response.message + '</div>');
+                    // Parse response if it's a string
+                    let parsedResponse = response;
+                    if (typeof response === 'string') {
+                        try {
+                            parsedResponse = JSON.parse(response);
+                        } catch (e) {
+                            console.error('Failed to parse response:', e);
+                            parsedResponse = { success: false, message: 'Ungültige Antwort vom Server.' };
+                        }
+                    }
+                    
+                    if (parsedResponse.success) {
+                        const successMessage = parsedResponse.message || 'Passwort erfolgreich zurückgesetzt!';
+                        messagesContainer.html('<div class="schilcher-login-success">' + successMessage + '</div>');
                         setTimeout(function() {
-                            window.location.href = response.redirect_url;
+                            window.location.href = parsedResponse.redirect_url || '/intern';
                         }, 1000);
                     } else {
-                        messagesContainer.html('<div class="schilcher-login-error">' + response.message + '</div>');
+                        const errorMessage = parsedResponse.message || 'Ein Fehler ist aufgetreten.';
+                        messagesContainer.html('<div class="schilcher-login-error">' + errorMessage + '</div>');
                         submitButton.text('Passwort speichern').prop('disabled', false);
                     }
                 })
