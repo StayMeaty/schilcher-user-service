@@ -1,0 +1,1129 @@
+/**
+ * Schilcher User Service Plugin Styles
+ * Unified CSS for all user management components
+ * Based on Schilcher Käse Brand Style Guide
+ */
+
+/* =====================================
+   BRAND VARIABLES & BASE STYLES
+   ===================================== */
+
+:root {
+    /* Brand Colors - Primary */
+    --schilcher-primary-teal: #fef8e7;
+    --schilcher-primary-text-brown: #49391b;
+    --schilcher-accent-yellow: #fdfdfc;
+    
+    /* Brand Colors - Secondary */
+    --schilcher-warm-brown: #876c4b;
+    --schilcher-light-brown: #bda77f;
+    --schilcher-dark-brown: #352507;
+    --schilcher-cream: #f5f0e6;
+    --schilcher-light-teal: #ffffff;
+    
+    /* Typography */
+    --schilcher-font-family: "Open Sans", -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    
+    /* Layout */
+    --schilcher-border-radius: 8px;
+    --schilcher-border-radius-small: 4px;
+    --schilcher-border-radius-large: 16px;
+    
+    /* Shadows */
+    --schilcher-shadow-small: 0 3px 8px rgba(73, 57, 27, 0.3);
+    --schilcher-shadow-medium: 0 4px 12px rgba(73, 57, 27, 0.2);
+    --schilcher-shadow-large: 0 10px 30px rgba(73, 57, 27, 0.05);
+}
+
+/* =====================================
+   LOGIN PAGE STYLES
+   ===================================== */
+
+.schilcher-login-page-wrapper {
+    font-family: var(--schilcher-font-family);
+    max-width: 672px;
+    margin: 40px auto;
+    padding: 20px;
+    color: var(--schilcher-primary-text-brown);
+}
+
+.schilcher-logo {
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.schilcher-logo img {
+    max-width: 280px;
+    width: 100%;
+    height: auto;
+    display: inline-block;
+}
+
+.schilcher-login-header {
+    background: var(--schilcher-primary-teal);
+    color: var(--schilcher-primary-text-brown);
+    padding: 40px 30px;
+    border-radius: var(--schilcher-border-radius-large) var(--schilcher-border-radius-large) 0 0;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid var(--schilcher-light-brown);
+    border-bottom: none;
+}
+
+.schilcher-login-header::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    right: -30px;
+    width: 80px;
+    height: 80px;
+    background: var(--schilcher-accent-yellow);
+    border-radius: 50%;
+    transform: translateY(-50%);
+    opacity: 0.3;
+}
+
+.schilcher-login-header h1 {
+    font-size: 28px;
+    margin: 0 0 12px 0;
+    font-weight: 700;
+    position: relative;
+    z-index: 1;
+    color: var(--schilcher-dark-brown);
+}
+
+.schilcher-login-header p {
+    font-size: 16px;
+    margin: 0;
+    position: relative;
+    z-index: 1;
+    color: var(--schilcher-warm-brown);
+    line-height: 1.5;
+}
+
+.schilcher-login-container {
+    background: white;
+    padding: 40px 30px;
+    border: 1px solid var(--schilcher-light-brown);
+    border-top: none;
+    border-radius: 0 0 var(--schilcher-border-radius-large) var(--schilcher-border-radius-large);
+    box-shadow: var(--schilcher-shadow-large);
+}
+
+.schilcher-login-section {
+    margin-bottom: 30px;
+}
+
+.schilcher-login-section:last-child {
+    margin-bottom: 0;
+}
+
+.schilcher-section-title {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--schilcher-primary-text-brown);
+    margin-bottom: 20px;
+    padding-bottom: 12px;
+    border-bottom: 2px solid var(--schilcher-cream);
+}
+
+/* Message Styles */
+.schilcher-login-error {
+    background: #ffe6e6;
+    border: 1px solid #ff9999;
+    border-radius: var(--schilcher-border-radius-small);
+    padding: 12px 16px;
+    margin-bottom: 20px;
+    color: #cc0000;
+    font-size: 14px;
+    line-height: 1.4;
+}
+
+.schilcher-login-success {
+    background: #e6ffe6;
+    border: 1px solid #99cc99;
+    border-radius: var(--schilcher-border-radius-small);
+    padding: 12px 16px;
+    margin-bottom: 20px;
+    color: #006600;
+    font-size: 14px;
+    line-height: 1.4;
+}
+
+/* Form Input Styles */
+.schilcher-login-page-wrapper input[type="text"],
+.schilcher-login-page-wrapper input[type="email"],
+.schilcher-login-page-wrapper input[type="password"],
+.schilcher-login-page-wrapper input[type="tel"],
+.schilcher-login-page-wrapper textarea {
+    width: 100%;
+    padding: 12px 16px;
+    border: 1px solid var(--schilcher-light-brown);
+    border-radius: var(--schilcher-border-radius-small);
+    font-size: 16px;
+    font-family: var(--schilcher-font-family);
+    background-color: #ffffff;
+    color: var(--schilcher-primary-text-brown);
+    transition: border-color 0.2s;
+    margin-bottom: 16px;
+    box-sizing: border-box;
+}
+
+.schilcher-login-page-wrapper input[type="text"]:focus,
+.schilcher-login-page-wrapper input[type="email"]:focus,
+.schilcher-login-page-wrapper input[type="password"]:focus,
+.schilcher-login-page-wrapper input[type="tel"]:focus,
+.schilcher-login-page-wrapper textarea:focus {
+    outline: none;
+    border-color: var(--schilcher-primary-text-brown);
+    box-shadow: 0 0 0 3px rgba(73, 57, 27, 0.1);
+}
+
+.schilcher-login-page-wrapper textarea {
+    min-height: 80px;
+    resize: vertical;
+}
+
+/* Button Styles */
+.schilcher-login-page-wrapper input[type="submit"],
+.schilcher-login-page-wrapper button[type="submit"],
+.schilcher-submit-button {
+    display: inline-block;
+    padding: 12px 32px;
+    background-color: var(--schilcher-primary-text-brown);
+    color: #ffffff;
+    font-weight: 600;
+    font-size: 16px;
+    border: none;
+    border-radius: var(--schilcher-border-radius-small);
+    cursor: pointer;
+    transition: all 0.2s;
+    text-decoration: none;
+    text-align: center;
+    width: 100%;
+    margin-top: 8px;
+    box-sizing: border-box;
+    font-family: var(--schilcher-font-family);
+}
+
+.schilcher-login-page-wrapper input[type="submit"]:hover,
+.schilcher-login-page-wrapper button[type="submit"]:hover,
+.schilcher-submit-button:hover {
+    background-color: var(--schilcher-dark-brown);
+    transform: translateY(-1px);
+    box-shadow: var(--schilcher-shadow-medium);
+}
+
+.schilcher-login-page-wrapper input[type="submit"]:active,
+.schilcher-login-page-wrapper button[type="submit"]:active,
+.schilcher-submit-button:active {
+    transform: translateY(0);
+}
+
+.schilcher-login-page-wrapper input[type="submit"]:disabled,
+.schilcher-login-page-wrapper button[type="submit"]:disabled,
+.schilcher-submit-button:disabled {
+    background-color: var(--schilcher-warm-brown);
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+.schilcher-login-page-wrapper label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: var(--schilcher-primary-text-brown);
+    font-size: 14px;
+}
+
+.schilcher-login-page-wrapper input[type="checkbox"],
+.schilcher-login-page-wrapper input[type="radio"] {
+    width: 18px;
+    height: 18px;
+    margin-right: 8px;
+    accent-color: var(--schilcher-primary-text-brown);
+    vertical-align: middle;
+}
+
+.schilcher-checkbox-wrapper {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.schilcher-checkbox-wrapper label {
+    margin-bottom: 0;
+    margin-left: 8px;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.schilcher-login-page-wrapper a {
+    color: var(--schilcher-primary-text-brown);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    transition: color 0.2s;
+}
+
+.schilcher-login-page-wrapper a:hover {
+    color: var(--schilcher-warm-brown);
+}
+
+/* Forgot Password Link */
+.schilcher-forgot-password-wrapper,
+.schilcher-back-to-login-wrapper {
+    text-align: center;
+    margin-top: 16px;
+}
+
+.schilcher-forgot-password-link,
+.schilcher-back-to-login-link {
+    font-size: 14px;
+    color: var(--schilcher-warm-brown) !important;
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.schilcher-forgot-password-link:hover,
+.schilcher-back-to-login-link:hover {
+    color: var(--schilcher-primary-text-brown) !important;
+    text-decoration: underline;
+}
+
+/* Info Text */
+.schilcher-info-text {
+    background: var(--schilcher-cream);
+    border: 1px solid var(--schilcher-light-brown);
+    border-radius: var(--schilcher-border-radius);
+    padding: 16px;
+    margin-bottom: 20px;
+    font-size: 14px;
+    color: var(--schilcher-warm-brown);
+    line-height: 1.5;
+}
+
+/* Additional Info Box */
+.schilcher-info-box {
+    background: var(--schilcher-cream);
+    border: 1px solid var(--schilcher-light-brown);
+    border-radius: var(--schilcher-border-radius);
+    padding: 20px;
+    margin-top: 30px;
+    text-align: center;
+}
+
+.schilcher-info-box h3 {
+    font-size: 18px;
+    color: var(--schilcher-primary-text-brown);
+    margin: 0 0 12px 0;
+    font-weight: 700;
+}
+
+.schilcher-info-box p {
+    font-size: 14px;
+    color: var(--schilcher-warm-brown);
+    margin: 0 0 16px 0;
+    line-height: 1.5;
+}
+
+.schilcher-btn-secondary {
+    display: inline-block;
+    padding: 10px 24px;
+    background-color: transparent;
+    color: var(--schilcher-primary-text-brown);
+    font-weight: 600;
+    font-size: 14px;
+    border: 2px solid var(--schilcher-primary-text-brown);
+    border-radius: var(--schilcher-border-radius-small);
+    cursor: pointer;
+    transition: all 0.2s;
+    text-decoration: none;
+    text-align: center;
+}
+
+.schilcher-btn-secondary:hover {
+    background-color: var(--schilcher-primary-text-brown);
+    color: #ffffff;
+}
+
+/* Contact Info */
+.schilcher-contact-info {
+    margin-top: 16px;
+}
+
+.schilcher-contact-info p {
+    margin: 8px 0;
+    line-height: 1.6;
+}
+
+.schilcher-contact-info a {
+    color: var(--schilcher-primary-text-brown);
+    text-decoration: underline;
+    font-weight: 600;
+}
+
+.schilcher-contact-info a:hover {
+    color: var(--schilcher-dark-brown);
+}
+
+/* Privacy Notice */
+.schilcher-privacy-notice {
+    background: var(--schilcher-cream);
+    border: 1px solid var(--schilcher-light-brown);
+    border-radius: var(--schilcher-border-radius);
+    padding: 20px;
+    margin: 20px 0;
+    text-align: center;
+}
+
+.schilcher-privacy-notice p {
+    font-size: 14px;
+    color: var(--schilcher-warm-brown);
+    margin: 0;
+    line-height: 1.6;
+}
+
+.schilcher-privacy-notice a {
+    color: var(--schilcher-primary-text-brown);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    font-weight: 600;
+    transition: color 0.2s;
+}
+
+.schilcher-privacy-notice a:hover {
+    color: var(--schilcher-dark-brown);
+}
+
+/* Trust Badge */
+.schilcher-trust-badge {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 10px;
+    color: var(--schilcher-warm-brown);
+    font-size: 12px;
+}
+
+.schilcher-trust-badge-icon {
+    color: var(--schilcher-primary-text-brown);
+    font-size: 16px;
+}
+
+/* Password Requirements */
+.schilcher-password-requirements {
+    background: var(--schilcher-cream);
+    border: 1px solid var(--schilcher-light-brown);
+    border-radius: var(--schilcher-border-radius);
+    padding: 16px;
+    margin-bottom: 20px;
+    font-size: 14px;
+    color: var(--schilcher-warm-brown);
+    line-height: 1.5;
+}
+
+.schilcher-password-requirements ul {
+    margin: 8px 0 0 0;
+    padding-left: 20px;
+}
+
+.schilcher-password-requirements li {
+    margin-bottom: 4px;
+}
+
+/* Password Strength Indicator */
+.schilcher-password-strength {
+    margin-top: 8px;
+    margin-bottom: 16px;
+}
+
+.schilcher-password-strength-indicator {
+    height: 4px;
+    background: #e0e0e0;
+    border-radius: 2px;
+    overflow: hidden;
+    margin-bottom: 8px;
+}
+
+.schilcher-password-strength-bar {
+    height: 100%;
+    transition: width 0.3s, background-color 0.3s;
+    width: 0%;
+    background: #ff4444;
+}
+
+.schilcher-password-strength-bar.weak {
+    width: 25%;
+    background: #ff4444;
+}
+
+.schilcher-password-strength-bar.fair {
+    width: 50%;
+    background: #ff8800;
+}
+
+.schilcher-password-strength-bar.good {
+    width: 75%;
+    background: #88cc00;
+}
+
+.schilcher-password-strength-bar.strong {
+    width: 100%;
+    background: #00aa00;
+}
+
+.schilcher-password-strength-text {
+    font-size: 12px;
+    color: var(--schilcher-warm-brown);
+}
+
+/* =====================================
+   REGISTRATION PAGE STYLES
+   ===================================== */
+
+.schilcher-dealer-registration-wrapper {
+    font-family: var(--schilcher-font-family);
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    color: var(--schilcher-primary-text-brown);
+}
+
+.schilcher-registration-header {
+    background: var(--schilcher-primary-teal);
+    color: var(--schilcher-primary-text-brown);
+    padding: 60px 40px;
+    border-radius: var(--schilcher-border-radius-large) var(--schilcher-border-radius-large) 0 0;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid var(--schilcher-light-brown);
+}
+
+.schilcher-registration-header::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 120px;
+    height: 120px;
+    background: var(--schilcher-accent-yellow);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0.3;
+    z-index: 0;
+}
+
+.schilcher-registration-header h2 {
+    font-size: 28px;
+    margin: 0 0 16px 0;
+    font-weight: 700;
+    position: relative;
+    z-index: 1;
+    color: var(--schilcher-dark-brown);
+}
+
+.schilcher-registration-header p {
+    font-size: 16px;
+    margin: 0;
+    position: relative;
+    z-index: 1;
+    max-width: 600px;
+    margin: 0 auto;
+    color: var(--schilcher-warm-brown);
+    line-height: 1.6;
+}
+
+.schilcher-benefits-section {
+    background: var(--schilcher-cream);
+    padding: 40px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+    border-left: 1px solid var(--schilcher-light-brown);
+    border-right: 1px solid var(--schilcher-light-brown);
+}
+
+.schilcher-benefit-card {
+    text-align: center;
+    padding: 20px;
+}
+
+.schilcher-benefit-icon {
+    width: 60px;
+    height: 60px;
+    background: var(--schilcher-accent-yellow);
+    border: 2px solid var(--schilcher-light-brown);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 16px;
+    font-size: 28px;
+}
+
+.schilcher-benefit-card h3 {
+    font-size: 20px;
+    margin: 0 0 12px 0;
+    color: var(--schilcher-primary-text-brown);
+    font-weight: 700;
+}
+
+.schilcher-benefit-card p {
+    font-size: 15px;
+    color: var(--schilcher-warm-brown);
+    margin: 0;
+    line-height: 1.6;
+}
+
+.schilcher-form-container {
+    background: white;
+    padding: 60px 40px;
+    border: 1px solid var(--schilcher-light-brown);
+    border-top: none;
+    border-radius: 0 0 var(--schilcher-border-radius-large) var(--schilcher-border-radius-large);
+    box-shadow: var(--schilcher-shadow-large);
+}
+
+.schilcher-form-intro {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.schilcher-form-intro h2 {
+    font-size: 28px;
+    color: var(--schilcher-primary-text-brown);
+    margin: 0 0 16px 0;
+    font-weight: 700;
+}
+
+.schilcher-form-intro p {
+    font-size: 16px;
+    color: var(--schilcher-warm-brown);
+    margin: 0;
+    line-height: 1.5;
+}
+
+/* Registration Form Styles */
+.schilcher-custom-registration-form {
+    margin: 40px 0;
+}
+
+.schilcher-form-section {
+    margin-bottom: 40px;
+    padding: 30px;
+    background: #f9f7f3;
+    border: 1px solid #e6ddd0;
+    border-radius: var(--schilcher-border-radius);
+}
+
+.schilcher-form-group {
+    margin-bottom: 20px;
+}
+
+.schilcher-form-label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: var(--schilcher-primary-text-brown);
+    font-size: 14px;
+}
+
+.schilcher-custom-registration-form input[type="text"],
+.schilcher-custom-registration-form input[type="email"],
+.schilcher-custom-registration-form input[type="tel"],
+.schilcher-custom-registration-form input[type="url"],
+.schilcher-custom-registration-form textarea {
+    width: 100%;
+    padding: 12px 16px;
+    border: 1px solid var(--schilcher-light-brown);
+    border-radius: var(--schilcher-border-radius-small);
+    font-size: 16px;
+    font-family: var(--schilcher-font-family);
+    background-color: #ffffff;
+    color: var(--schilcher-primary-text-brown);
+    transition: border-color 0.2s;
+    box-sizing: border-box;
+}
+
+.schilcher-custom-registration-form input[type="text"]:focus,
+.schilcher-custom-registration-form input[type="email"]:focus,
+.schilcher-custom-registration-form input[type="tel"]:focus,
+.schilcher-custom-registration-form input[type="url"]:focus,
+.schilcher-custom-registration-form textarea:focus {
+    outline: none;
+    border-color: var(--schilcher-primary-text-brown);
+    box-shadow: 0 0 0 3px rgba(73, 57, 27, 0.1);
+}
+
+.schilcher-custom-registration-form textarea {
+    min-height: 80px;
+    resize: vertical;
+}
+
+.schilcher-custom-registration-form label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: var(--schilcher-primary-text-brown);
+    font-size: 14px;
+}
+
+.schilcher-checkbox-group,
+.schilcher-radio-group {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 12px;
+    margin-top: 8px;
+}
+
+/* Smaller gap for yes/no questions */
+.schilcher-radio-group.schilcher-compact {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.schilcher-checkbox-item,
+.schilcher-radio-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.schilcher-custom-registration-form input[type="checkbox"],
+.schilcher-custom-registration-form input[type="radio"] {
+    width: 18px;
+    height: 18px;
+    accent-color: var(--schilcher-primary-text-brown);
+    margin: 0;
+    flex-shrink: 0;
+}
+
+.schilcher-checkbox-item label,
+.schilcher-radio-item label {
+    margin-bottom: 0;
+    font-size: 14px;
+    cursor: pointer;
+    line-height: 1.4;
+}
+
+/* Styling for explanatory text */
+.schilcher-explanatory-text {
+    color: var(--schilcher-warm-brown);
+    font-style: italic;
+    font-weight: normal;
+}
+
+.schilcher-checkbox-item input[type="text"],
+.schilcher-radio-item input[type="text"] {
+    margin-left: 8px;
+    max-width: 200px;
+    display: none; /* Initially hidden */
+}
+
+.schilcher-checkbox-item input[type="text"].visible,
+.schilcher-radio-item input[type="text"].visible {
+    display: inline-block;
+}
+
+/* Registration Messages */
+.schilcher-registration-error {
+    background: #ffe6e6;
+    border: 1px solid #ff9999;
+    border-radius: var(--schilcher-border-radius-small);
+    padding: 12px 16px;
+    margin-bottom: 20px;
+    color: #cc0000;
+    font-size: 14px;
+    line-height: 1.4;
+}
+
+.schilcher-registration-success {
+    background: #e6ffe6;
+    border: 1px solid #99cc99;
+    border-radius: var(--schilcher-border-radius-small);
+    padding: 12px 16px;
+    margin-bottom: 20px;
+    color: #006600;
+    font-size: 14px;
+    line-height: 1.4;
+}
+
+.schilcher-registration-info {
+    background: #e6f3ff;
+    border: 1px solid #99ccff;
+    border-radius: var(--schilcher-border-radius-small);
+    padding: 12px 16px;
+    margin-bottom: 20px;
+    color: #0066cc;
+    font-size: 14px;
+    line-height: 1.4;
+}
+
+/* Success Message Container */
+.schilcher-success-message-box {
+    background: #f0f8f0;
+    border: 2px solid #4CAF50;
+    border-radius: 12px;
+    padding: 40px;
+    text-align: center;
+    margin: 40px 0;
+    box-shadow: 0 4px 16px rgba(76, 175, 80, 0.1);
+}
+
+.schilcher-success-icon {
+    font-size: 64px;
+    color: #4CAF50;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+.schilcher-success-message-box h3 {
+    font-size: 28px;
+    color: #2E7D32;
+    margin: 0 0 16px 0;
+    font-weight: 700;
+}
+
+.schilcher-success-message-box p {
+    font-size: 16px;
+    color: #388E3C;
+    margin: 0 0 24px 0;
+    line-height: 1.6;
+}
+
+.schilcher-next-steps {
+    background: #ffffff;
+    border: 1px solid #C8E6C9;
+    border-radius: var(--schilcher-border-radius);
+    padding: 24px;
+    margin: 24px 0;
+    text-align: left;
+}
+
+.schilcher-next-steps h4 {
+    font-size: 18px;
+    color: #2E7D32;
+    margin: 0 0 16px 0;
+    font-weight: 700;
+}
+
+.schilcher-next-steps ol {
+    margin: 0;
+    padding-left: 20px;
+    color: #388E3C;
+}
+
+.schilcher-next-steps li {
+    margin-bottom: 8px;
+    line-height: 1.5;
+}
+
+.schilcher-contact-info {
+    background: #ffffff;
+    border: 1px solid #C8E6C9;
+    border-radius: var(--schilcher-border-radius);
+    padding: 20px;
+    margin: 24px 0 0 0;
+}
+
+.schilcher-contact-info p {
+    margin: 0 0 8px 0;
+    color: #2E7D32;
+}
+
+.schilcher-contact-info p:last-child {
+    margin-bottom: 0;
+}
+
+.schilcher-trust-indicators {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 40px;
+    margin-top: 20px;
+    padding-top: 30px;
+    border-top: 1px solid var(--schilcher-light-brown);
+    flex-wrap: wrap;
+}
+
+.schilcher-trust-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: var(--schilcher-warm-brown);
+    font-size: 14px;
+}
+
+.schilcher-trust-icon {
+    color: var(--schilcher-accent-yellow);
+    font-size: 20px;
+    background: var(--schilcher-primary-text-brown);
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* =====================================
+   NAVBAR STYLES
+   ===================================== */
+
+.schilcher-account-button {
+    position: relative;
+    display: inline-block;
+    font-family: var(--schilcher-font-family);
+    margin: 8px;
+}
+
+/* Login Button */
+.schilcher-login-button {
+    background-color: var(--schilcher-primary-teal);
+    color: var(--schilcher-primary-text-brown);
+    border: 2px solid var(--schilcher-primary-text-brown);
+    padding: 10px 20px;
+    border-radius: var(--schilcher-border-radius);
+    font-family: var(--schilcher-font-family);
+    font-weight: 600;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: inline-block;
+    white-space: nowrap;
+}
+
+.schilcher-login-button:hover {
+    background-color: var(--schilcher-primary-text-brown);
+    color: var(--schilcher-primary-teal);
+    transform: translateY(-1px);
+    box-shadow: var(--schilcher-shadow-small);
+    text-decoration: none;
+}
+
+/* Account Dropdown */
+.schilcher-account-dropdown {
+    position: relative;
+    display: none; /* Hidden by default */
+}
+
+.schilcher-account-trigger {
+    background-color: var(--schilcher-primary-teal);
+    color: var(--schilcher-primary-text-brown);
+    border: 2px solid var(--schilcher-primary-text-brown);
+    padding: 10px 16px;
+    border-radius: var(--schilcher-border-radius);
+    font-family: var(--schilcher-font-family);
+    font-weight: 600;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    min-width: 130px;
+}
+
+.schilcher-account-trigger:hover,
+.schilcher-account-trigger.active {
+    background-color: var(--schilcher-primary-text-brown);
+    color: var(--schilcher-primary-teal);
+    transform: translateY(-1px);
+    box-shadow: var(--schilcher-shadow-small);
+}
+
+.schilcher-account-trigger.active {
+    border-radius: var(--schilcher-border-radius) var(--schilcher-border-radius) 0 0;
+    transform: none;
+    box-shadow: none;
+}
+
+.schilcher-user-icon {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background-color: var(--schilcher-warm-brown);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 11px;
+    font-weight: bold;
+    flex-shrink: 0;
+}
+
+.schilcher-username {
+    flex: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 80px;
+    font-size: 10px;
+}
+
+.schilcher-dropdown-arrow {
+    margin-left: auto;
+    transition: transform 0.3s ease;
+    font-size: 10px;
+    flex-shrink: 0;
+}
+
+.schilcher-account-trigger.active .schilcher-dropdown-arrow {
+    transform: rotate(180deg);
+}
+
+.schilcher-dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background-color: white;
+    border: 2px solid var(--schilcher-primary-text-brown);
+    border-top: none;
+    border-radius: 0 0 var(--schilcher-border-radius) var(--schilcher-border-radius);
+    box-shadow: 0 4px 12px rgba(73, 57, 27, 0.15);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: all 0.3s ease;
+    z-index: 9999;
+    min-width: 140px;
+}
+
+.schilcher-dropdown-menu.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.schilcher-dropdown-item {
+    display: block;
+    width: 100%;
+    padding: 10px 16px;
+    color: var(--schilcher-primary-text-brown);
+    text-decoration: none;
+    font-family: var(--schilcher-font-family);
+    font-weight: 500;
+    font-size: 11px;
+    border: none;
+    background: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    text-align: left;
+    white-space: nowrap;
+}
+
+.schilcher-dropdown-item:hover {
+    background-color: var(--schilcher-primary-teal);
+    color: var(--schilcher-primary-text-brown);
+    text-decoration: none;
+}
+
+.schilcher-dropdown-item:last-child {
+    border-radius: 0 0 6px 6px;
+}
+
+/* State Management */
+.schilcher-logged-in .schilcher-login-button {
+    display: none;
+}
+
+.schilcher-logged-in .schilcher-account-dropdown {
+    display: inline-block;
+}
+
+/* =====================================
+   RESPONSIVE DESIGN
+   ===================================== */
+
+@media (max-width: 768px) {
+    .schilcher-registration-header {
+        padding: 40px 20px;
+    }
+
+    .schilcher-registration-header h1 {
+        font-size: 28px;
+    }
+
+    .schilcher-registration-header p {
+        font-size: 16px;
+    }
+
+    .schilcher-benefits-section {
+        padding: 30px 20px;
+        gap: 20px;
+    }
+
+    .schilcher-form-container {
+        padding: 40px 20px;
+    }
+
+    .schilcher-form-section {
+        padding: 20px;
+    }
+
+    .schilcher-checkbox-group,
+    .schilcher-radio-group {
+        grid-template-columns: 1fr;
+        gap: 8px;
+    }
+
+    .schilcher-section-title {
+        font-size: 20px;
+    }
+
+    .schilcher-success-message-box {
+        padding: 30px 20px;
+    }
+
+    .schilcher-success-icon {
+        font-size: 48px;
+    }
+
+    .schilcher-success-message-box h3 {
+        font-size: 24px;
+    }
+
+    .schilcher-trust-indicators {
+        gap: 20px;
+    }
+
+    .schilcher-account-trigger,
+    .schilcher-login-button {
+        font-size: 13px;
+        padding: 8px 12px;
+    }
+
+    .schilcher-username {
+        max-width: 60px;
+        font-size: 9px;
+    }
+
+    .schilcher-account-button {
+        margin: 4px;
+    }
+}
+
+@media (max-width: 540px) {
+    .schilcher-login-page-wrapper {
+        margin: 20px auto;
+    }
+
+    .schilcher-login-header {
+        padding: 30px 20px;
+    }
+
+    .schilcher-login-header h1 {
+        font-size: 24px;
+    }
+
+    .schilcher-login-container {
+        padding: 30px 20px;
+    }
+}
