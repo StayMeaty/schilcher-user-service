@@ -112,7 +112,7 @@ class Schilcher_Email_Manager {
                 'E-Mail: ' . $form_data['email_general'],
                 'Benutzername: ' . $user->user_login
             )),
-            'CLOSING_TEXT' => 'Ihr Antrag wird nun geprüft. Sie erhalten eine weitere E-Mail, sobald Ihr Konto freigeschaltet wurde.<br><br>Wir melden uns in der Regel innerhalb von 1-2 Werktagen bei Ihnen.'
+            'CLOSING_TEXT' => 'Ihr Antrag wird nun geprüft. Sie erhalten eine weitere E-Mail, sobald Ihr Konto freigeschaltet wurde.<br><br>Wir melden uns zeitnah bei Ihnen.'
         );
 
         $email_content = $this->load_email_template($template_data);
