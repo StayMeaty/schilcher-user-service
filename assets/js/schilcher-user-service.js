@@ -602,27 +602,10 @@
             action: 'schilcher_logout',
             nonce: schilcherAjax.logout_nonce
         })
-        .done(function(response) {
-            if (response.success) {
-                showSchilcherMessage('Erfolgreich abgemeldet. Sie werden weitergeleitet...', 'success');
-                setTimeout(function() {
-                    window.location.href = response.redirect_url;
-                }, 1500);
-            } else {
-                showSchilcherMessage('Fehler beim Abmelden.', 'error');
-                console.error('Logout failed:', response.message);
-            }
-        })
-        .fail(function() {
-            showSchilcherMessage('Fehler beim Abmelden.', 'error');
-            setTimeout(function() {
-                window.location.href = 'https://www.schilcher-kaese.de';
-            }, 2000);
-        })
         .always(function() {
-            // Reset button state
-            usernameEl.text(originalText);
-            accountTrigger.css({ opacity: '1', pointerEvents: 'auto' });
+            // Always reload the page after logout attempt
+            // This ensures the page refreshes to show logged-out state
+            window.location.reload();
         });
     };
 

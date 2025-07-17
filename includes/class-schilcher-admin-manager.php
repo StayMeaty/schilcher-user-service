@@ -22,6 +22,8 @@ class Schilcher_Admin_Manager {
 
     public function init() {
         add_action('admin_init', array($this, 'add_user_approval_actions'));
+        add_action('admin_menu', array($this, 'add_admin_menu'));
+        add_action('admin_init', array($this, 'register_settings'));
         add_action('user_row_actions', array($this, 'user_row_actions'), 10, 2);
         add_action('admin_action_approve_b2b_user', array($this, 'approve_b2b_user'));
         add_action('admin_action_reject_b2b_user', array($this, 'reject_b2b_user'));
@@ -201,5 +203,162 @@ class Schilcher_Admin_Manager {
         }
 
         return $user;
+    }
+
+    /**
+     * Add admin menu page
+     */
+    public function add_admin_menu() {
+        add_options_page(
+            'Schilcher User Service', // Page title
+            'Schilcher B2B', // Menu title
+            'manage_options', // Capability
+            'schilcher-user-service', // Menu slug
+            array($this, 'admin_page') // Callback function
+        );
+    }
+
+    /**
+     * Register plugin settings
+     */
+    public function register_settings() {
+        register_setting('schilcher_user_service_settings', 'schilcher_notification_email_mode');
+        register_setting('schilcher_user_service_settings', 'schilcher_notification_custom_emails');
+
+        add_settings_section(
+            'schilcher_email_notifications',
+            'E-Mail Benachrichtigungen',
+            array($this, 'email_notifications_section_callback'),
+            'schilcher_user_service_settings'
+        );
+
+        add_settings_field(
+            'notification_email_mode',
+            'Benachrichtigungs-Modus',
+            array($this, 'notification_email_mode_callback'),
+            'schilcher_user_service_settings',
+            'schilcher_email_notifications'
+        );
+
+        add_settings_field(
+            'notification_custom_emails',
+            'Benutzerdefinierte E-Mail-Adressen',
+            array($this, 'notification_custom_emails_callback'),
+            'schilcher_user_service_settings',
+            'schilcher_email_notifications'
+        );
+    }
+
+    /**
+     * Admin page callback
+     */
+    public function admin_page() {
+        ?>
+        <div class="wrap">
+            <h1>Schilcher User Service Einstellungen</h1>
+            
+            <?php settings_errors(); ?>
+            
+            <form method="post" action="options.php">
+                <?php
+                settings_fields('schilcher_user_service_settings');
+                do_settings_sections('schilcher_user_service_settings');
+                submit_button();
+                ?>
+            </form>
+
+            <div class="card" style="margin-top: 20px;">
+                <h2>B2B Benutzerverwaltung</h2>
+                <p>Hier können Sie die E-Mail-Benachrichtigungen für neue B2B-Registrierungen konfigurieren.</p>
+                
+                <h3>Aktuelle Einstellungen:</h3>
+                <ul>
+                    <li><strong>WordPress Admin E-Mail:</strong> <?php echo esc_html(get_option('admin_email')); ?></li>
+                    <li><strong>Benachrichtigungs-Modus:</strong> 
+                        <?php 
+                        $mode = get_option('schilcher_notification_email_mode', 'wordpress_admin');
+                        echo $mode === 'custom' ? 'Benutzerdefinierte E-Mail-Adressen' : 'WordPress Admin E-Mail';
+                        ?>
+                    </li>
+                    <?php if ($mode === 'custom'): ?>
+                    <li><strong>Benutzerdefinierte E-Mails:</strong> <?php echo esc_html(get_option('schilcher_notification_custom_emails', '')); ?></li>
+                    <?php endif; ?>
+                </ul>
+
+                <h3>Schnellaktionen:</h3>
+                <p>
+                    <a href="<?php echo admin_url('users.php'); ?>" class="button">Benutzer verwalten</a>
+                    <a href="<?php echo admin_url('admin.php?action=export_b2b_users'); ?>" class="button">B2B Benutzer exportieren</a>
+                </p>
+            </div>
+        </div>
+        <?php
+    }
+
+    /**
+     * Email notifications section callback
+     */
+    public function email_notifications_section_callback() {
+        echo '<p>Konfigurieren Sie, welche E-Mail-Adressen bei neuen B2B-Registrierungen benachrichtigt werden sollen.</p>';
+    }
+
+    /**
+     * Notification email mode callback
+     */
+    public function notification_email_mode_callback() {
+        $mode = get_option('schilcher_notification_email_mode', 'wordpress_admin');
+        ?>
+        <fieldset>
+            <label>
+                <input type="radio" name="schilcher_notification_email_mode" value="wordpress_admin" <?php checked($mode, 'wordpress_admin'); ?>>
+                WordPress Admin E-Mail verwenden (<?php echo esc_html(get_option('admin_email')); ?>)
+            </label><br>
+            <label>
+                <input type="radio" name="schilcher_notification_email_mode" value="custom" <?php checked($mode, 'custom'); ?>>
+                Benutzerdefinierte E-Mail-Adressen verwenden
+            </label>
+        </fieldset>
+        <p class="description">Wählen Sie aus, welche E-Mail-Adressen bei neuen B2B-Registrierungen benachrichtigt werden sollen.</p>
+        <?php
+    }
+
+    /**
+     * Notification custom emails callback
+     */
+    public function notification_custom_emails_callback() {
+        $emails = get_option('schilcher_notification_custom_emails', '');
+        ?>
+        <textarea name="schilcher_notification_custom_emails" rows="3" cols="50" class="large-text"><?php echo esc_textarea($emails); ?></textarea>
+        <p class="description">
+            Geben Sie eine oder mehrere E-Mail-Adressen ein, getrennt durch Kommas.<br>
+            Beispiel: admin@schilcher-kaese.de, vertrieb@schilcher-kaese.de, manager@schilcher-kaese.de
+        </p>
+        <?php
+    }
+
+    /**
+     * Get notification email addresses based on settings
+     */
+    public function get_notification_emails() {
+        $mode = get_option('schilcher_notification_email_mode', 'wordpress_admin');
+        
+        if ($mode === 'custom') {
+            $custom_emails = get_option('schilcher_notification_custom_emails', '');
+            if (!empty($custom_emails)) {
+                // Split by comma and clean up each email
+                $emails = array_map('trim', explode(',', $custom_emails));
+                // Filter out empty emails and validate
+                $emails = array_filter($emails, function($email) {
+                    return !empty($email) && is_email($email);
+                });
+                
+                if (!empty($emails)) {
+                    return $emails;
+                }
+            }
+        }
+        
+        // Fallback to WordPress admin email
+        return array(get_option('admin_email'));
     }
 }

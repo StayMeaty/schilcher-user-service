@@ -1127,3 +1127,156 @@
         padding: 30px 20px;
     }
 }
+
+/* Already Logged In Styles */
+.schilcher-already-logged-in-box {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+    padding: 40px 30px;
+    text-align: center;
+    margin: 20px 0;
+    border: 2px solid #4CAF50;
+}
+
+.schilcher-already-logged-in-box .schilcher-success-icon {
+    background: #4CAF50;
+    color: white;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+    font-weight: bold;
+    margin: 0 auto 20px;
+}
+
+.schilcher-already-logged-in-box h3 {
+    color: #333;
+    font-size: 28px;
+    font-weight: 700;
+    margin: 0 0 15px;
+    font-family: 'Open Sans', Arial, sans-serif;
+}
+
+.schilcher-already-logged-in-box p {
+    color: #666;
+    font-size: 16px;
+    line-height: 1.6;
+    margin: 0 0 30px;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.schilcher-logged-in-actions {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+}
+
+.schilcher-btn-primary,
+.schilcher-btn-secondary {
+    display: inline-block;
+    padding: 12px 24px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 14px;
+    text-align: center;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+    min-width: 160px;
+    cursor: pointer;
+    font-family: inherit;
+}
+
+.schilcher-btn-primary {
+    background: #49391b;
+    color: white;
+    border-color: #49391b;
+}
+
+.schilcher-btn-primary:hover {
+    background: #3a2e16;
+    border-color: #3a2e16;
+    color: white;
+    text-decoration: none;
+}
+
+.schilcher-btn-secondary {
+    background: transparent;
+    color: #49391b;
+    border-color: #49391b;
+}
+
+.schilcher-btn-secondary:hover {
+    background: #49391b;
+    color: white;
+    text-decoration: none;
+}
+
+.schilcher-logout-info {
+    text-align: center;
+    margin: 0 auto 20px auto;
+    padding: 15px;
+    background: #f8f9fa;
+    border-radius: 6px;
+    border-left: 4px solid #6c757d;
+    max-width: 500px;
+}
+
+.schilcher-logout-info p {
+    margin: 0 auto;
+    color: #6c757d;
+    font-style: italic;
+    text-align: center;
+}
+
+.schilcher-logout-info small {
+    font-size: 13px;
+}
+
+.schilcher-already-logged-in-box .schilcher-contact-info {
+    border-top: 1px solid #eee;
+    padding-top: 20px;
+    margin-top: 20px;
+    text-align: center;
+}
+
+.schilcher-already-logged-in-box .schilcher-contact-info p {
+    margin: 8px auto;
+    font-size: 14px;
+    text-align: center;
+}
+
+.schilcher-already-logged-in-box .schilcher-contact-info p:first-child {
+    font-weight: 600;
+    color: #333;
+}
+
+/* Responsive adjustments for already logged in box */
+@media (max-width: 768px) {
+    .schilcher-already-logged-in-box {
+        padding: 30px 20px;
+    }
+    
+    .schilcher-logged-in-actions {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .schilcher-btn-primary,
+    .schilcher-btn-secondary {
+        width: 100%;
+        max-width: 280px;
+    }
+    
+    .schilcher-already-logged-in-box .schilcher-contact-info p {
+        text-align: center;
+    }
+}

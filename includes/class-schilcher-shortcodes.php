@@ -146,6 +146,70 @@ class Schilcher_Shortcodes {
     public function registration_form_shortcode($atts) {
         $atts = shortcode_atts(array(), $atts, 'schilcher_registration_form');
         
+        // Check if user is already logged in
+        if (is_user_logged_in()) {
+            $current_user = wp_get_current_user();
+            $display_name = !empty($current_user->display_name) ? $current_user->display_name : $current_user->user_login;
+            
+            ob_start();
+            ?>
+            <div class="schilcher-dealer-registration-wrapper">
+                <!-- Header Section -->
+                <div class="schilcher-registration-header">
+                    <div class="schilcher-logo">
+                        <img src="https://www.schilcher-kaese.de/wp-content/uploads/2025/06/logo_schilcher_kaese.svg" alt="Schilcher - Kompetenz in Biokäse">
+                    </div>
+                    <h2>Bereits angemeldet</h2>
+                </div>
+
+                <!-- Already Logged In Message -->
+                <div class="schilcher-form-container">
+                    <div class="schilcher-already-logged-in-box">
+                        <div class="schilcher-success-icon">✓</div>
+                        <h3>Hallo <?php echo esc_html($display_name); ?>!</h3>
+                        <p>Sie sind bereits in Ihrem Händlerkonto angemeldet. Eine erneute Registrierung ist nicht erforderlich.</p>
+                        
+                        <div class="schilcher-logged-in-actions">
+                            <a href="<?php echo esc_url(home_url()); ?>" class="schilcher-btn-primary">
+                                Zurück zur Hauptseite
+                            </a>
+                            <a href="#" onclick="schilcherLogoutUser(); return false;" class="schilcher-btn-secondary">
+                                Abmelden
+                            </a>
+                        </div>
+                        
+                        <div class="schilcher-logout-info">
+                            <p><small>Sie können sich abmelden, um ein neues Konto zu registrieren oder sich mit einem anderen Konto anzumelden.</small></p>
+                        </div>
+                        
+                        <div class="schilcher-contact-info">
+                            <p><strong>Bei Fragen erreichen Sie uns:</strong></p>
+                            <p>📧 E-Mail: vertrieb@schilcher-kaese.de<br>
+                            📞 Telefon: +49 (0) 8869 911 515</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Trust Indicators -->
+                <div class="schilcher-trust-indicators">
+                    <div class="schilcher-trust-item">
+                        <span class="schilcher-trust-icon">🔒</span>
+                        <span>Ihre Daten sind sicher</span>
+                    </div>
+                    <div class="schilcher-trust-item">
+                        <span class="schilcher-trust-icon">✓</span>
+                        <span>DSGVO-konform</span>
+                    </div>
+                    <div class="schilcher-trust-item">
+                        <span class="schilcher-trust-icon">🧀</span>
+                        <span>Premium Käsesortiment</span>
+                    </div>
+                </div>
+            </div>
+            <?php
+            return ob_get_clean();
+        }
+        
         ob_start();
         ?>
         <div class="schilcher-dealer-registration-wrapper">

@@ -177,7 +177,10 @@ class Schilcher_Email_Manager {
     }
 
     public function send_admin_notification($user_id, $form_data, $username) {
-        $admin_email = get_option('admin_email');
+        // Get notification emails from admin settings
+        $admin_manager = Schilcher_Admin_Manager::get_instance();
+        $notification_emails = $admin_manager->get_notification_emails();
+        
         $admin_subject = 'Neue B2B Registrierung - ' . $form_data['company_name'];
 
         $admin_message = "Neue B2B-Registrierung eingegangen:\n\n";
@@ -219,7 +222,16 @@ class Schilcher_Email_Manager {
         $admin_message .= "\n=== AKTIONEN ===\n";
         $admin_message .= "Benutzerprofil bearbeiten: " . admin_url('user-edit.php?user_id=' . $user_id) . "\n";
 
-        return wp_mail($admin_email, $admin_subject, $admin_message);
+        // Send to all configured notification emails
+        $success = true;
+        foreach ($notification_emails as $email) {
+            $result = wp_mail($email, $admin_subject, $admin_message);
+            if (!$result) {
+                $success = false;
+            }
+        }
+
+        return $success;
     }
 
     private function get_client_ip() {
