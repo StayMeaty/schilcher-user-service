@@ -188,6 +188,13 @@
             const submitButton = $(this).find('button[type="submit"]');
             const messagesContainer = $('#schilcher-reset-messages');
 
+            // Debug: Check if message container exists
+            if (messagesContainer.length === 0) {
+                console.error('Message container not found!');
+                alert('Fehler: Nachrichten-Container nicht gefunden.');
+                return;
+            }
+
             // Show loading state
             submitButton.text('Sende...').prop('disabled', true);
             messagesContainer.html('');
@@ -196,24 +203,86 @@
             const formData = {
                 action: 'schilcher_password_reset',
                 user_email: $('#reset-email').val(),
-                nonce: schilcherAjax.reset_nonce
+                nonce: (typeof schilcherAjax !== 'undefined' && schilcherAjax.reset_nonce) ? schilcherAjax.reset_nonce : ''
             };
+
+            // Debug: Log form data
+            console.log('Form data:', formData);
 
             // Send AJAX request
             $.post(schilcherAjax.ajaxurl, formData)
                 .done(function(response) {
                     console.log('Password reset AJAX response:', response);
                     
-                    if (response.success) {
-                        messagesContainer.html('<div class="schilcher-login-success">' + response.message + '</div>');
-                        $('#reset-email').val('');
+                    // Handle response
+                    let processedResponse = response;
+                    
+                    // Parse response if it's a string
+                    if (typeof response === 'string') {
+                        try {
+                            processedResponse = JSON.parse(response);
+                            console.log('Parsed response:', processedResponse);
+                        } catch (e) {
+                            console.error('Failed to parse response:', e);
+                            console.error('Raw response:', response);
+                            messagesContainer.html('<div class="schilcher-login-error">Ein Fehler ist aufgetreten. Bitte versuchen Sie es erneut.</div>');
+                            submitButton.text('Passwort-Link senden').prop('disabled', false);
+                            return;
+                        }
+                    }
+                    
+                    // Check if we have a valid response object
+                    if (!processedResponse || typeof processedResponse !== 'object') {
+                        console.error('Invalid response object:', processedResponse);
+                        messagesContainer.html('<div class="schilcher-login-error">Ungültige Antwort vom Server.</div>');
+                        submitButton.text('Passwort-Link senden').prop('disabled', false);
+                        return;
+                    }
+                    
+                    // Additional safety check for response structure
+                    if (processedResponse.success === undefined) {
+                        console.error('Response missing success property:', processedResponse);
+                        messagesContainer.html('<div class="schilcher-login-error">Unvollständige Antwort vom Server.</div>');
+                        submitButton.text('Passwort-Link senden').prop('disabled', false);
+                        return;
+                    }
+                    
+                    // Display message based on success status
+                    if (processedResponse.success === true) {
+                        let message = processedResponse.message || 'Anfrage wurde verarbeitet.';
+                        // Safety check to prevent displaying "undefined"
+                        if (message === 'undefined' || message === undefined || message === null) {
+                            message = 'Anfrage wurde verarbeitet.';
+                        }
+                        console.log('Success message to display:', message);
+                        if (messagesContainer.length > 0) {
+                            messagesContainer.html('<div class="schilcher-login-success">' + message + '</div>');
+                            $('#reset-email').val('');
+                            console.log('Success message displayed in container');
+                        } else {
+                            console.error('Messages container not found in DOM');
+                            alert(message); // Fallback display
+                        }
                     } else {
-                        messagesContainer.html('<div class="schilcher-login-error">' + response.message + '</div>');
+                        let errorMessage = processedResponse.message || 'Ein Fehler ist aufgetreten.';
+                        // Safety check to prevent displaying "undefined"
+                        if (errorMessage === 'undefined' || errorMessage === undefined || errorMessage === null) {
+                            errorMessage = 'Ein Fehler ist aufgetreten.';
+                        }
+                        console.log('Error message to display:', errorMessage);
+                        if (messagesContainer.length > 0) {
+                            messagesContainer.html('<div class="schilcher-login-error">' + errorMessage + '</div>');
+                        } else {
+                            console.error('Messages container not found in DOM');
+                            alert(errorMessage); // Fallback display
+                        }
                     }
 
                     submitButton.text('Passwort-Link senden').prop('disabled', false);
                 })
-                .fail(function() {
+                .fail(function(jqXHR, textStatus, errorThrown) {
+                    console.error('AJAX request failed:', textStatus, errorThrown);
+                    console.error('Response:', jqXHR.responseText);
                     messagesContainer.html('<div class="schilcher-login-error">Ein Fehler ist aufgetreten. Bitte versuchen Sie es erneut.</div>');
                     submitButton.text('Passwort-Link senden').prop('disabled', false);
                 });
