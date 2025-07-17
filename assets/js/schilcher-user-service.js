@@ -85,16 +85,11 @@
 
         console.log('Schilcher User Service: Registration form found');
 
-        // Ensure nonce is properly set
+        // Set nonce field if available through localized script
         const nonceField = $('#registration-nonce');
-        if (nonceField.length && (!nonceField.val() || nonceField.val() === '[schilcher_nonce]')) {
-            $.post(schilcherAjax.ajaxurl, { action: 'get_registration_nonce' })
-                .done(function(response) {
-                    if (response.success && response.data && response.data.nonce) {
-                        nonceField.val(response.data.nonce);
-                        console.log('Registration nonce set via AJAX');
-                    }
-                });
+        if (nonceField.length && typeof schilcherAjax !== 'undefined' && schilcherAjax.registration_nonce) {
+            nonceField.val(schilcherAjax.registration_nonce);
+            console.log('Registration nonce set from localized script');
         }
 
         // Handle "Sonstige" legal form radio button
@@ -125,8 +120,19 @@
             messagesContainer.html('');
 
             // Collect form data
-            const formData = new FormData(this[0]);
+            const formData = new FormData(this);
             formData.append('action', 'schilcher_registration');
+            
+            // Ensure nonce is included - get from localized script first, then fallback to field
+            const nonceValue = (typeof schilcherAjax !== 'undefined' ? schilcherAjax.registration_nonce : '') ||
+                              $('#registration-nonce').val();
+            
+            if (nonceValue) {
+                formData.set('registration_nonce', nonceValue);
+                console.log('Nonce included in form data:', nonceValue);
+            } else {
+                console.warn('No nonce available');
+            }
 
             // Send AJAX request
             $.ajax({
@@ -139,16 +145,30 @@
             .done(function(response) {
                 console.log('Registration AJAX response:', response);
                 
-                if (response.success) {
+                // Parse response if it's a string
+                let parsedResponse = response;
+                if (typeof response === 'string') {
+                    try {
+                        parsedResponse = JSON.parse(response);
+                    } catch (e) {
+                        console.error('Failed to parse response:', e);
+                        parsedResponse = { success: false, message: 'Ungültige Antwort vom Server.' };
+                    }
+                }
+                
+                if (parsedResponse.success) {
+                    const successMessage = parsedResponse.message || 'Registrierung erfolgreich eingereicht!';
+                    
                     // Hide the form and show success container
                     registrationForm.parent().hide();
                     $('#registration-success-container').show();
-                    messagesContainer.html('<div class="schilcher-registration-success">' + response.message + '</div>');
+                    messagesContainer.html('<div class="schilcher-registration-success">' + successMessage + '</div>');
                     
                     // Scroll to top
                     $('html, body').animate({ scrollTop: 0 }, 'smooth');
                 } else {
-                    messagesContainer.html('<div class="schilcher-registration-error">' + response.message + '</div>');
+                    const errorMessage = parsedResponse.message || 'Ein Fehler ist aufgetreten.';
+                    messagesContainer.html('<div class="schilcher-registration-error">' + errorMessage + '</div>');
                     messagesContainer[0].scrollIntoView({ behavior: 'smooth' });
                 }
 
